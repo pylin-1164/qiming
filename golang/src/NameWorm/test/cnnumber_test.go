@@ -3,7 +3,7 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"pyl/NameWorm/cnnumber"
+	"NameWorm/cnnumber"
 	"testing"
 )
 

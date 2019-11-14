@@ -2,7 +2,7 @@ package cnname
 
 import (
 	"fmt"
-	"pyl/NameWorm/db"
+	"NameWorm/db"
 )
 
 func DeleteAll(){
