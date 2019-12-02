@@ -1,12 +1,15 @@
 package restful
 
 import (
+	"NameWorm/cnnumber"
+	"NameWorm/common"
+	"NameWorm/db"
+	"NameWorm/utils/aesutil"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/emicklei/go-restful"
-	"NameWorm/common"
-	"NameWorm/cnnumber"
-	"NameWorm/db"
+	"io/ioutil"
 )
 
 const (
@@ -29,14 +32,31 @@ type ApiNameEvaluate struct {
 }
 
 func (v ApiNameEvaluate) RegistRoute(server *restful.WebService) {
-	server.Route(server.POST("/api/name/parse").To(v.nameEvaluate).
+	server.Route(server.POST("/api/name/parse").Filter(aesFilter).To(v.nameEvaluate).
 		Doc("post NameEvaluate"))
 	fmt.Printf("listener join post api : %s \n","/api/name/parse")
-	server.Route(server.POST("/api/name/grasp").To(v.nameGrasp).
+	server.Route(server.POST("/api/name/grasp").Filter(aesFilter).To(v.nameGrasp).
 		Doc("post NameGrasp"))
 	fmt.Printf("listener join post api : %s \n","/api/name/grasp")
 	server.Route(server.POST("/api/name/links").To(v.links).Doc("post Links"))
 
+}
+
+// Route Filter (defines FilterFunction)
+func aesFilter(req *restful.Request, resp *restful.Response, chain *restful.FilterChain) {
+	// wrap responseWriter into a compressing one
+	var bodyBytes []byte
+	bodyBytes, _ = ioutil.ReadAll(req.Request.Body)
+	if bodyBytes != nil{
+		if decrypt, e := aesutil.Decrypt(fmt.Sprintf("%s", bodyBytes)); e != nil || decrypt==""{
+			resp.WriteErrorString(401, "401: 参数错误")
+			return
+		}else  {
+			bodyBytes = []byte(decrypt)
+		}
+	}
+	req.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+	chain.ProcessFilter(req, resp)
 }
 
 func init() {
@@ -47,6 +67,7 @@ func init() {
  * 解析姓名
  */
 func (v ApiNameEvaluate) nameEvaluate(request *restful.Request, response *restful.Response){
+
 
 	if err := request.ReadEntity(&v);err != nil{
 		result := fmt.Sprintf(`{"resultstatus":"0","errorcode":"-2","errorinfo":"request parameter err "}`)

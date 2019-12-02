@@ -68,7 +68,7 @@
             this.birthday.CausesValidation = false;
             this.birthday.Cursor = System.Windows.Forms.Cursors.No;
             this.birthday.Font = new System.Drawing.Font("仿宋", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.birthday.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.birthday.ForeColor = System.Drawing.Color.SeaGreen;
             this.birthday.Location = new System.Drawing.Point(64, 153);
             this.birthday.Name = "birthday";
             this.birthday.Size = new System.Drawing.Size(93, 20);
@@ -87,7 +87,7 @@
             // 
             // firstNameInput
             // 
-            this.firstNameInput.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.firstNameInput.ForeColor = System.Drawing.SystemColors.Highlight;
             this.firstNameInput.Location = new System.Drawing.Point(173, 27);
             this.firstNameInput.Name = "firstNameInput";
             this.firstNameInput.Size = new System.Drawing.Size(200, 21);
@@ -98,7 +98,7 @@
             this.username.AutoSize = true;
             this.username.BackColor = System.Drawing.Color.Transparent;
             this.username.Font = new System.Drawing.Font("仿宋", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.username.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.username.ForeColor = System.Drawing.Color.SeaGreen;
             this.username.Location = new System.Drawing.Point(64, 25);
             this.username.Name = "username";
             this.username.Size = new System.Drawing.Size(95, 20);
@@ -110,7 +110,7 @@
             this.sex.AutoSize = true;
             this.sex.BackColor = System.Drawing.Color.Transparent;
             this.sex.Font = new System.Drawing.Font("仿宋", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.sex.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.sex.ForeColor = System.Drawing.Color.SeaGreen;
             this.sex.Location = new System.Drawing.Point(64, 200);
             this.sex.Name = "sex";
             this.sex.Size = new System.Drawing.Size(95, 20);
@@ -181,7 +181,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("仿宋", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label1.ForeColor = System.Drawing.Color.SeaGreen;
             this.label1.Location = new System.Drawing.Point(64, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 20);
@@ -193,7 +193,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("仿宋", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label2.ForeColor = System.Drawing.Color.SeaGreen;
             this.label2.Location = new System.Drawing.Point(64, 111);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 14);
@@ -203,7 +203,7 @@
             // limitName
             // 
             this.limitName.Enabled = false;
-            this.limitName.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.limitName.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.limitName.Location = new System.Drawing.Point(173, 110);
             this.limitName.Name = "limitName";
             this.limitName.Size = new System.Drawing.Size(150, 21);
@@ -318,8 +318,9 @@
             // title_sici
             // 
             this.title_sici.AutoSize = true;
+            this.title_sici.BackColor = System.Drawing.Color.SeaGreen;
             this.title_sici.Font = new System.Drawing.Font("宋体", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.title_sici.ForeColor = System.Drawing.Color.Sienna;
+            this.title_sici.ForeColor = System.Drawing.Color.Linen;
             this.title_sici.Location = new System.Drawing.Point(-5, 136);
             this.title_sici.Name = "title_sici";
             this.title_sici.Size = new System.Drawing.Size(111, 19);
@@ -329,8 +330,9 @@
             // title_score
             // 
             this.title_score.AutoSize = true;
+            this.title_score.BackColor = System.Drawing.Color.SeaGreen;
             this.title_score.Font = new System.Drawing.Font("宋体", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.title_score.ForeColor = System.Drawing.Color.Green;
+            this.title_score.ForeColor = System.Drawing.Color.Linen;
             this.title_score.Location = new System.Drawing.Point(-5, 7);
             this.title_score.Name = "title_score";
             this.title_score.Size = new System.Drawing.Size(111, 19);
@@ -341,7 +343,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::MoralName.Properties.Resources._91;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(920, 507);
             this.Controls.Add(this.copyright_panel);
@@ -363,12 +365,13 @@
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "autoname";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "你的名字";
+            this.Text = "启名";
             ((System.ComponentModel.ISupportInitialize)(this.namegrid)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

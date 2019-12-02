@@ -227,6 +227,7 @@ namespace MoralName
         {
             try
             {
+                postData = AES.AESEncrypt(postData);
                 byte[] bytes = System.Text.Encoding.UTF8.GetBytes(postData);
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "post";
@@ -398,7 +399,7 @@ namespace MoralName
             }
 
         }
-        
+
     }
 
 
