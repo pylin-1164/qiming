@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
-using System.Runtime.Serialization.Json;
 using NameEntry;
 
 namespace MoralName
@@ -46,7 +43,7 @@ namespace MoralName
                 return;
             }
             string jsonData = preuser2str(firstName, limitWord, limitType,gender, haslimit);
-            string result = postApi("http://127.0.0.1:8099/api/name/grasp", jsonData);
+            string result = postApi("http://27953499sv.zicp.vip:28177/api/name/grasp", jsonData);
             if (result == "")
             {
                 MessageBox.Show("请求超时...");
@@ -120,7 +117,7 @@ namespace MoralName
             //TODO 调用接口
             string jsonData = user2str(firstName, suffixName, genderCode, year, month, day);
 
-            string result = postApi("http://127.0.0.1:8099/api/name/parse", jsonData);
+            string result = postApi("http://27953499sv.zicp.vip:28177/api/name/parse", jsonData);
             if (result == "")
             {
                 MessageBox.Show("请求超时...");
@@ -261,7 +258,7 @@ namespace MoralName
             user.year = year;
             user.month = month;
             user.day = day;
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(UserInfo));
+            /*DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(UserInfo));
             System.IO.MemoryStream ms = new MemoryStream();
             serializer.WriteObject(ms, user);
             System.IO.StreamReader reader = new StreamReader(ms);
@@ -269,6 +266,8 @@ namespace MoralName
             string jsonData = reader.ReadToEnd();
             reader.Close();
             ms.Close();
+            */
+            string jsonData = JsonUtil.SerializeObject(user);
             return jsonData;
         }
 
@@ -287,7 +286,8 @@ namespace MoralName
             }
             preUser.firstName = firstName;
             preUser.gender = gender;
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(PreUser));
+            /*
+             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(PreUser));
             System.IO.MemoryStream ms = new MemoryStream();
             serializer.WriteObject(ms, preUser);
             System.IO.StreamReader reader = new StreamReader(ms);
@@ -295,43 +295,54 @@ namespace MoralName
             string jsonData = reader.ReadToEnd();
             reader.Close();
             ms.Close();
+             */
+            string jsonData = JsonUtil.SerializeObject(preUser);
             return jsonData;
         }
 
 
         private UserResult str2userResult(string str)
         {
-            // 实例化DataContractJsonSerializer对象，需要待序列化的对象类型  
+            /*
+             // 实例化DataContractJsonSerializer对象，需要待序列化的对象类型  
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(UserResult));
             //把Json传入内存流中保存  
             MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(str));
             // 使用ReadObject方法反序列化成对象  
             object ob = serializer.ReadObject(stream);
             UserResult result = (UserResult)ob;
+             */
+            UserResult result = JsonUtil.DeserializeObject<UserResult>(str);
             return result;
         }
 
         private PreUserResult str2preUserResult(string str)
         {
-            // 实例化DataContractJsonSerializer对象，需要待序列化的对象类型  
+            /*
+             // 实例化DataContractJsonSerializer对象，需要待序列化的对象类型  
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(PreUserResult));
             //把Json传入内存流中保存  
             MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(str));
             // 使用ReadObject方法反序列化成对象  
             object ob = serializer.ReadObject(stream);
             PreUserResult result = (PreUserResult)ob;
+             */
+            PreUserResult result = JsonUtil.DeserializeObject<PreUserResult>(str);
             return result;
         }
 
         private LinkNumbers str2linknumbers(string str)
         {
-            // 实例化DataContractJsonSerializer对象，需要待序列化的对象类型  
+            /*
+             // 实例化DataContractJsonSerializer对象，需要待序列化的对象类型  
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(LinkNumbers));
             //把Json传入内存流中保存  
             MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(str));
             // 使用ReadObject方法反序列化成对象  
             object ob = serializer.ReadObject(stream);
             LinkNumbers result = (LinkNumbers)ob;
+             */
+            LinkNumbers result = JsonUtil.DeserializeObject<LinkNumbers>(str);
             return result;
         }
 
@@ -339,7 +350,7 @@ namespace MoralName
         private void copyright_panel_Paint(object sender, PaintEventArgs e)
         {
 
-            string result = postApi("http://127.0.0.1:8099/api/name/links", "");
+            string result = postApi("http://27953499sv.zicp.vip:28177/api/name/links", "");
             if (result == "")
             {
                 MessageBox.Show("连接服务器失败...");

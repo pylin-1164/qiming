@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NameEntry
 {
@@ -64,14 +62,14 @@ namespace NameEntry
 public class LinkNumbers
 {
     //QQ
-    public string qq;
+    public string qq { get; set; }
 
     //QQ群
-    public string qqg;
+    public string qqg { get; set; }
 
     //微信
-    public string weixin;
+    public string weixin { get; set; }
 
     //微信群
-    public string weixing;
+    public string weixing{ get; set;} 
 }
