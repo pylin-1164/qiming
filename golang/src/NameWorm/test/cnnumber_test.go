@@ -19,3 +19,8 @@ func TestGetNumberIndexPage(t *testing.T){
 	//cnnumber.HttpPost(preDatas,numNameData)
 	}
 
+func TestLisenceCode(t *testing.T){
+	value := make(map[string]int64)
+	fmt.Println(value["123"])
+}
+

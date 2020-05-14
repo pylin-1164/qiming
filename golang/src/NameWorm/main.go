@@ -1,7 +1,10 @@
 package main
 
-import "NameWorm/restful"
+import (
+	_ "NameWorm/restful/client"
+	"NameWorm/restful/server"
+)
 
 func main() {
-	restful.StartRestfulApi{}.StartApi()
+	server.StartRestfulApi{}.StartApi()
 }

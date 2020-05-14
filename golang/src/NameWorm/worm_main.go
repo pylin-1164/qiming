@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"pyl/NameWorm/cnname"
+	"NameWorm/cnname"
 )
 
 func main() {
