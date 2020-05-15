@@ -41,14 +41,15 @@
     <legend></legend>
     <div class="row">
       <div class="one whole padded">
-        <label for="first">姓氏:（第一个字，暂不支持复性）</label>
-        <input id="first" name="firstName" maxlength="1" type="text" placeholder="姓">
+        <label for="first">姓氏:</label>
+        <input id="first" name="firstName" maxlength="2" type="text" placeholder="姓">
       </div>
     </div>
     <div class="row">
        <div class="one whole padded">
        	<label for="single" class="select-wrap">名字长度</label>
         <select id="single" class="unselected" name="single" onchange="singleChange();">
+        	<option value="">随机</option>
         	<option value="1">单字</option>
         	<option value="0"  selected="selected">多字</option>
         </select>
@@ -57,7 +58,7 @@
     <div class="row">
     	<div class="one whole padded">
 	        <label for="limitWord">固定字：(名字中包含该汉字,非必填)</label>
-	        <input id="limitWord" name="limitWord" type="text" placeholder="">
+	        <input id="limitWord" name="limitWord" type="text" maxlength="2" placeholder="">
       	</div>
     </div>
      <div class="row">
@@ -125,20 +126,28 @@ function validate(){
 	var firstName = $("input[name='firstName']").val();
 	var birthday = $("input[name='birthday']").val();
 	var licenseCode = $("input[name='licenseCode']").val();
+	var limitWord = $("input[name='limitWord']").val();
 	
 	if($.trim(firstName) == ""){
 		validateMsg("姓氏不能为空");
 		return false;
 	}
-	if(firstName.length>1){
-		validateMsg("姓氏不能超过1个字符");
+	if(firstName.length>2){
+		validateMsg("姓氏不能超过2个字符");
 		return false;
 	}
-	var cnRex = /^[\u4e00-\u9fa5]{1}$/;
+	var cnRex = /^[\u4e00-\u9fa5]{1,}$/;
 	if(!cnRex.test(firstName)){
 		validateMsg("姓氏必须是中文");
 		return false;
 	}
+	
+	if(limitWord.length >0 && !cnRex.test(limitWord)){
+		validateMsg("固定字必须是中文");
+		return false;
+	}
+	
+	
 	if($.trim(birthday) == ""){
 		validateMsg("出生日期不能为空")
 		return false;
@@ -151,6 +160,12 @@ function validate(){
 	
 	if(!(/^[0-9]{4}$/).test(licenseCode)){
 		validateMsg("授权码必须4位数字")
+		return false;
+	}
+	
+	var single = $("select[name='single']").val();
+	if(single == "1" && limitWord.length>1){
+		validateMsg("固定字只能是一个");
 		return false;
 	}
 	return true;
@@ -168,10 +183,10 @@ function validateMsg(msg){
 function singleChange(){
 	var single = $("select[name='single']").val();
 	if(single == "1") {
-		$("input[name='limitWord']").attr("disabled","disabled");
+		//$("input[name='limitWord']").attr("disabled","disabled");
 		$("select[name='limitType']").attr("disabled","disabled");
 	}else{
-		$("input[name='limitWord']").removeAttr("disabled");
+		//$("input[name='limitWord']").removeAttr("disabled");
 		$("select[name='limitType']").removeAttr("disabled");
 	}
 }

@@ -5,6 +5,9 @@ import java.io.Serializable;
 public class ApiNameEvaluate implements Serializable {
 
 	private static final long serialVersionUID = -9085954110478322388L;
+	
+	public static String SINGLE_MODE_ONE = "1";
+	public static String SINGLE_MODE_DOUBLE = "0";
 
 	private String firstName;
 	

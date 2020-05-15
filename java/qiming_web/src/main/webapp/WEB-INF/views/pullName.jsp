@@ -80,8 +80,12 @@
 			background-color: #dff0d8;
 		}
 		
-		.lineName > i {
-			float:right;font-size: 20px;margin-top: -4px;
+		.box{
+			height:55px;
+		}
+		
+		.lineName {
+			float:left;
 		}
 		
 		.hide {
@@ -94,18 +98,30 @@
 			-webkit-animation-iteration-count: 1; /*动画次数*/
 			-webkit-animation-delay: 0s; /*延迟时间*/
 		}
+		
+		.labelright{
+			width:40px;float: right;font-size: 6px;padding-left:20px;
+		}
+		
+		
 	</style>
 </head>
 <body>
+	<c:set value="40" var="max"></c:set>
 	<div id="table" class="one padded bounceInDown  animated">
          <c:forEach items="${names}"  var="name" varStatus="status">
          	<c:if test="${status.index%2==0}">
 		         <div class="success box">
-		         	<label class="lineName">${name}
-		         		<i class="icon-caret-down  icon-4x" onclick="javascript:showDetail(this,'${name}','${status.index}')" ></i>
-		         		<i class="icon-spinner icon-spin icon-4x hide"></i>
-		         		<i class="icon-remove  icon-4x hide" onclick="javascript:removeDetail(this,'${status.index}')" ></i>
-		         	</label>
+		         	<label class="lineName">${status.index+1}.${name}</label>
+		         	<span class="labelright" onclick="javascript:showDetail(this,'${name}','${status.index}')" >
+		         		<i class="icon-caret-down  icon-4x"></i>
+		         	</span>
+		         	<span class="labelright hide" >
+		         		<i class="icon-spinner icon-spin icon-4x "></i>
+		         	</span>
+		         	<span class="labelright hide" onclick="javascript:removeDetail(this,'${status.index}')" >
+		         		<i class="icon-remove  icon-4x " ></i>
+		         	</span>
 		         </div>
 		         <div id="showTab_${status.index}" class="alert message hide showMsg" style="background: #fff;color: #6a8c5c;font-size: 9px;padding: 0px;">
 	        		<div class="tabs vertical">
@@ -122,11 +138,16 @@
          	</c:if>
          	<c:if test="${status.index%2==1}">
 		         <div class="question box">
-		         	<label class="lineName">${name}
-		         		<i class="icon-caret-down  icon-4x" onclick="javascript:showDetail(this,'${name}','${status.index}')" ></i>
-		         		<i class="icon-spinner icon-spin icon-4x hide"></i>
-		         		<i class="icon-remove  icon-4x hide" onclick="javascript:removeDetail(this,'${status.index}')" ></i>
-		         	</label>
+		         	<label class="lineName">${status.index+1}.${name}</label>
+		         	<span class="labelright" onclick="javascript:showDetail(this,'${name}','${status.index}')" >
+		         		<i class="icon-caret-down  icon-4x"></i>
+		         	</span>
+		         	<span class="labelright hide" >
+		         		<i class="icon-spinner icon-spin icon-4x "></i>
+		         	</span>
+		         	<span class="labelright hide" onclick="javascript:removeDetail(this,'${status.index}')" >
+		         		<i class="icon-remove  icon-4x " ></i>
+		         	</span>
 		         </div>
 		         <div id="showTab_${status.index}" class="alert message hide showMsg" style="background: #fff;color: #6a8c5c;font-size: 9px;padding: 0px;">
 	        		<div class="tabs vertical">
@@ -143,14 +164,16 @@
          	</c:if>
          </c:forEach>
     </div>
-  <!--   <div class="row">
-      <div class="one whole padded">
-      	<div id="freshBtn" class="blue button" style="width:100%;text-align: center;">
-      		<label>刷新</label>
-      	</div>
-      	
-      </div>
-     </div> -->
+    <c:if test="${fn:length(names) eq max }">
+	 	<div class="row">
+	      <div class="one whole padded">
+	      	<div id="freshBtn" class="blue button" style="width:100%;text-align: center;">
+	      		<label>刷新</label>
+	      	</div>
+	      	
+	      </div>
+	     </div>
+     </c:if>
 </body>
 <script type="text/javascript" src="${ctx}/resources/js/libs/jquery.tmpl.js"></script>
 <script type="text/javascript" src="${ctx}/resources/js/groundwork.all.js"></script>
@@ -235,8 +258,8 @@
 			  	"</div>"	
 	
 	function showDetail(divTag,userName,index){
-		$(divTag).next().removeClass("hide");
 		$(divTag).addClass("hide");
+		$(divTag).next().removeClass("hide");
 		ajaxDetail(divTag,userName,index);
 		return 
 	}
@@ -266,7 +289,6 @@
 				dataType:"JSON",
 				async:false,
 				success:function(data){
-					console.log(data);
 					var testData = {};
 					$.tpl(tab1, data ).appendTo("#tab1_"+index);
 					$.tpl(tab2, data ).appendTo("#tab2_"+index);
@@ -286,9 +308,9 @@
 	}
 	
 	
-	/* $("#freshBtn").click(function(){
+	$("#freshBtn").click(function(){
 		location.reload();
-	}); */
+	});
 
 
 </script>

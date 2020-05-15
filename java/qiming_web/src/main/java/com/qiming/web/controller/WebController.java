@@ -39,6 +39,8 @@ public class WebController{
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/pullName")
 	public String pullName(HttpServletRequest request,ApiNameEvaluate apiNameEvaluate){
+		searchName(apiNameEvaluate);
+		
 		String url = "http://127.0.0.1:8099/api/name/grasp";
 		request.getSession().setAttribute("apiNameEvaluate", apiNameEvaluate);
 		JSONObject jsonObj = JSONObject.fromObject(apiNameEvaluate);
@@ -128,6 +130,37 @@ public class WebController{
 		
 		return numberEntiry;
 		
+	}
+	
+	/**
+	 * 校验名字没有则创建
+	 * @param apiNameEvaluate
+	 */
+	private void searchName(ApiNameEvaluate apiNameEvaluate){
+		boolean fullNameSatus = false;
+		if(ApiNameEvaluate.SINGLE_MODE_ONE.equals(apiNameEvaluate.getSingle()) &&
+				StringUtils.isNotBlank(apiNameEvaluate.getSuffixName())){
+			fullNameSatus = true;
+		}else if(ApiNameEvaluate.SINGLE_MODE_DOUBLE.equals(apiNameEvaluate.getSingle()) &&
+				StringUtils.isNotBlank(apiNameEvaluate.getLimitWord()) &&
+				apiNameEvaluate.getLimitWord().length()==2){
+			apiNameEvaluate.setSuffixName(apiNameEvaluate.getLimitWord());
+			fullNameSatus = true;
+		}
+		if(!fullNameSatus){
+			return;
+		}
+		try{
+			String url = "http://127.0.0.1:8099/api/name/search";
+			Map<String,String> headers = new HashMap<String, String>();
+			JSONObject jsonObj = JSONObject.fromObject(apiNameEvaluate);
+			String data = AESUtil.aesEncrypt(jsonObj.toString());
+			System.out.println(jsonObj.toString());
+			String result = HttpsClientUtil.SendHttpPOST(url,data , headers);
+			System.out.println(result);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
 	
 	private String[] siciLine(String sici){
