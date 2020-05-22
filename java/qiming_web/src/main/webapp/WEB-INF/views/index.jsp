@@ -88,7 +88,7 @@
     <div class="row">
       <div class="one whole padded">
         <label for="licenseCode">授权码</label>
-        <input id="licenseCode" name="licenseCode" type="text" maxlength="4" placeholder="授权码">
+        <input id="licenseCode" name="licenseCode" type="text" maxlength="4" value="${lisence}" placeholder="授权码">
       </div>
     </div>
     <div class="row">

@@ -28,11 +28,12 @@ import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/")
-public class WebController{
+public class WebController extends BaseController{
 	
 	@RequestMapping
 	public String index(){
-		
+		String lisence = getParameter("lisence");
+		setAttribuate("lisence", lisence);
 		return "index";
 	}
 	

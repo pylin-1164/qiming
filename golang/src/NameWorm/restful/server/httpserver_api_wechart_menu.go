@@ -151,7 +151,7 @@ func (w WechartAPI) clickMenuA(requestXml *RequestClickMenuXML, response *restfu
 	articleItem.ItemTitle = ItemTitle{Text:"启名"}
 	articleItem.ItemDescription = ItemDescription{Text:fmt.Sprintf("启航人生,从名字开始。你的授权码为： %s",licenseCode)}
 	articleItem.ItemPicUrl = ItemPicUrl{Text:"http://27953499sv.zicp.vip:25067/resources/wechart/qihang.png"}
-	articleItem.ItemUrl = ItemUrl{Text:"http://27953499sv.zicp.vip:25067/"}
+	articleItem.ItemUrl = ItemUrl{Text:fmt.Sprintf("http://27953499sv.zicp.vip:25067/?lisence=%s",licenseCode)}
 
 	//qrItem := ArticleItem{}
 	//qrItem.ItemTitle = ItemTitle{Text:"关注孩子"}
