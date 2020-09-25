@@ -1,6 +1,7 @@
 package client
 
 import (
+	config "NameWorm/common"
 	"bytes"
 	"crypto/tls"
 	"encoding/json"
@@ -55,10 +56,10 @@ type MenuButton struct {
 	SubButton	[]MenuButton 		`json:"sub_button,omitempty"`
 }
 
-
 func (w ApiWechartClient) getAccessToken(){
-	appid := "wxd776217f8588611a"
-	appsecret := "9b909dbe9ce63b078380c77aed80e3a6"
+
+	appid := config.GetWechartAppID()
+	appsecret := config.GetWechartSecret()
 	url := w.GetAccessTokenUrl
 	url = strings.Replace(url,"${APPID}",appid,1)
 	url = strings.Replace(url,"${APPSECRET}",appsecret,1)
@@ -69,6 +70,7 @@ func (w ApiWechartClient) getAccessToken(){
 	}
 	if response.StatusCode() == http.StatusOK {
 		tokenResponse := AccessTokenResponse{}
+		fmt.Printf("%s \n",response.Body())
 		json.Unmarshal(response.Body(),&tokenResponse)
 		accessToken = tokenResponse
 	}else {
@@ -100,6 +102,7 @@ func (w ApiWechartClient) createMenu(){
 	}
 	if response.StatusCode() == 200 {
 		fmt.Println("POST CREATE MENU OK")
+		fmt.Printf("%s \n",response.Body())
 	}else{
 		panic("POST CREATE MENU RESPONSE STATUS " + fmt.Sprint("%d",response.StatusCode()))
 	}
