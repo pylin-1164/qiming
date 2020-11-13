@@ -1,6 +1,7 @@
 package server
 
 import (
+	config "NameWorm/common"
 	"crypto/rand"
 	"crypto/tls"
 	"fmt"
@@ -18,8 +19,8 @@ type StartRestfulApi struct {
 func (s StartRestfulApi) StartApi(){
 	StartRestfulServer()
 	restful.DefaultContainer.Add(WS)
-	fmt.Printf("start restful api listening on localhost:8099 \n")
-	http.ListenAndServe(":8099", nil)
+	fmt.Printf("start restful api listening on localhost:%d \n",config.API_SERVER_PORT)
+	http.ListenAndServe(fmt.Sprintf(":%d",config.API_SERVER_PORT), nil)
 }
 
 /**
@@ -37,7 +38,7 @@ func (s StartRestfulApi) StartSSLapi(){
 	s.inittls(sslconfig, certFile, keyFile)
 
 	srv := http.Server{
-		Addr:         ":8099",
+		Addr:         fmt.Sprintf(":%d",config.API_SERVER_PORT),
 		Handler:      wsContainer,
 		TLSConfig:    sslconfig,
 		TLSNextProto: make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),

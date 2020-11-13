@@ -42,7 +42,7 @@ public class WebController extends BaseController{
 	public String pullName(HttpServletRequest request,ApiNameEvaluate apiNameEvaluate){
 		searchName(apiNameEvaluate);
 		
-		String url = "http://127.0.0.1:8099/api/name/grasp";
+		String url = "http://127.0.0.1/api/name/grasp";
 		request.getSession().setAttribute("apiNameEvaluate", apiNameEvaluate);
 		JSONObject jsonObj = JSONObject.fromObject(apiNameEvaluate);
 		Map<String,String> headers = new HashMap<String, String>();
@@ -76,7 +76,7 @@ public class WebController extends BaseController{
 	public NumberEntiry findNameEstimate(HttpServletRequest request,String name){
 		NumberEntiry numberEntiry = new NumberEntiry();
 		try{
-			String url = "http://127.0.0.1:8099/api/name/parse";
+			String url = "http://127.0.0.1/api/name/parse";
 			ApiNameEvaluate apiNameEvaluate = (ApiNameEvaluate)request.getSession().getAttribute("apiNameEvaluate");
 			String birthday = apiNameEvaluate.getBirthday();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");

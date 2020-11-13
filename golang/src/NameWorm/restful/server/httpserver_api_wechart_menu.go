@@ -1,6 +1,7 @@
 package server
 
 import (
+	config "NameWorm/common"
 	"NameWorm/restful/client"
 	"crypto/sha1"
 	"encoding/xml"
@@ -16,6 +17,7 @@ import (
 //授权码有效期
 var LicenseCache = make(map[string]int64)
 
+const ErrorMSG  = "抱歉，未检索到相关信息。\r ^_^ 您可以回复\"名字\"获取授权访问链接"
 type WechartAPI struct {
 
 }
@@ -47,6 +49,9 @@ type RequestClickMenuXML struct {
 	MsgType			MsgType			`xml:"MsgType"`
 	Event			Event			`xml:"Event"`
 	EventKey		EventKey		`xml:"EventKey"`
+	Content			string			`xml:"Content"`
+	MsgId			string			`xml:"MsgId"`
+
 }
 
 type ToUserName struct {
@@ -64,6 +69,11 @@ type MsgType struct {
 	Text			string				`xml:",cdata"`
 }
 
+type Content struct {
+	XMLName 		xml.Name			`xml:"Content"`
+	Text			string				`xml:",cdata"`
+}
+
 type Event struct {
 	Event 			xml.Name			`xml:"Event"`
 	Text			string				`xml:",cdata"`
@@ -72,6 +82,16 @@ type Event struct {
 type EventKey struct {
 	EventKey 		xml.Name			`xml:"EventKey"`
 	Text			string				`xml:",cdata"`
+}
+
+
+type ResponseTextXML struct {
+	XMLName			xml.Name 		`xml:"xml"`
+	ToUserName		ToUserName		`xml:"ToUserName"`
+	FromUserName	FromUserName	`xml:"FromUserName"`
+	CreateTime		string			`xml:"CreateTime"`
+	MsgType			MsgType			`xml:"MsgType"`
+	Content 		Content 		`xml:"Content"`
 }
 
 
@@ -150,8 +170,8 @@ func (w WechartAPI) clickMenuA(requestXml *RequestClickMenuXML, response *restfu
 	articleItem := ArticleItem{}
 	articleItem.ItemTitle = ItemTitle{Text:"启名"}
 	articleItem.ItemDescription = ItemDescription{Text:fmt.Sprintf("启航人生,从名字开始。你的授权码为： %s",licenseCode)}
-	articleItem.ItemPicUrl = ItemPicUrl{Text:"http://27953499sv.zicp.vip:25067/resources/wechart/qihang.png"}
-	articleItem.ItemUrl = ItemUrl{Text:fmt.Sprintf("http://27953499sv.zicp.vip:25067/?lisence=%s",licenseCode)}
+	articleItem.ItemPicUrl = ItemPicUrl{Text:fmt.Sprintf("%s/resources/wechart/qihang.png",config.UI_SERVER["host"])}
+	articleItem.ItemUrl = ItemUrl{Text:fmt.Sprintf("%s/?lisence=%s",config.UI_SERVER["host"],licenseCode)}
 
 	//qrItem := ArticleItem{}
 	//qrItem.ItemTitle = ItemTitle{Text:"关注孩子"}
@@ -180,20 +200,41 @@ func (w WechartAPI) clickMenuB(requestXml *RequestClickMenuXML, response *restfu
 	response.Write(responseBody)
 }
 
+func (w WechartAPI) errorMsg(requestXml *RequestClickMenuXML, response *restful.Response){
+	responseTextXML := ResponseTextXML{}
+	responseTextXML.FromUserName = FromUserName{Text:requestXml.ToUserName.Text}
+	responseTextXML.ToUserName = ToUserName{Text:requestXml.FromUserName.Text}
+	responseTextXML.CreateTime = fmt.Sprintf("%d",time.Now().Unix())
+	responseTextXML.MsgType = MsgType{Text:"text"}
+	responseTextXML.Content =  Content{Text:ErrorMSG}
+	responseBody, _ := xml.Marshal(responseTextXML)
+	fmt.Println(string(responseBody))
+	response.Write(responseBody)
+}
+
 
 func (w WechartAPI) clickMenu(req *restful.Request, response *restful.Response){
 	s, _ := ioutil.ReadAll(req.Request.Body)
 	requestXml := RequestClickMenuXML{}
 	xml.Unmarshal(s,&requestXml)
 	eventKey := requestXml.EventKey.Text
+	content := requestXml.Content
+	if "名字" == strings.Trim(content," ")  {
+		eventKey = "msg"
+	}
 	switch eventKey {
 	case "clickA":
 		w.clickMenuA(&requestXml,response)
+		break
 	case "clickB":
 		w.clickMenuB(&requestXml,response)
-
+		break
+	case "msg" :
+		w.clickMenuA(&requestXml,response)
+		break
 	default:
-		panic("unrecognized value")
+		w.errorMsg(&requestXml,response)
+
 	}
 
 }

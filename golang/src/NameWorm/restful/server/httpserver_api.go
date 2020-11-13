@@ -10,9 +10,7 @@ import (
 	"github.com/emicklei/go-restful"
 	"io/ioutil"
 	"math/rand"
-	"runtime"
 	"strconv"
-	"time"
 )
 
 const (
@@ -190,7 +188,8 @@ func (v *ApiNameEvaluate) beforeCheck(request *restful.Request, response *restfu
 	}
 	fmt.Println("licensCode: ", v.LicenseCode)
 
-	if runtime.GOOS != "windows" {
+	/* 微信菜单API初始化功能需要认证,无法获取
+	  if runtime.GOOS != "windows" {
 		if v.LicenseCode == "" || LicenseCache[v.LicenseCode] == 0 {
 			result := fmt.Sprintf(`{"resultstatus":"0","errorcode":"-1","errorinfo":"授权码错误"}`)
 			response.Write([]byte(result))
@@ -201,7 +200,7 @@ func (v *ApiNameEvaluate) beforeCheck(request *restful.Request, response *restfu
 			return true
 		}
 
-	}
+	}*/
 	return false
 }
 

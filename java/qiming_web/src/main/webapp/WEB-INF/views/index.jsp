@@ -36,7 +36,7 @@
 </head>
 <body>
 
-<form id="form" action="#" method="post">
+<form id="form" action="#" method="get">
   <fieldset>
     <legend></legend>
     <div class="row">
