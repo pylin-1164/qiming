@@ -1,6 +1,7 @@
 package db
 
 import (
+	. "NameWorm/common"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"strings"
@@ -17,9 +18,9 @@ type MysqlConnect struct {
 var Conn *MysqlConnect
 
 func init() {
-	Conn = &MysqlConnect{Host:"127.0.0.1",DbName:"test",UserName:"root",Password:"123456"}
+	Conn = &MysqlConnect{Host:DataBaseInfo.Host,DbName:DataBaseInfo.Name,UserName:DataBaseInfo.User,Password:DataBaseInfo.Password}
 	//connStr := "%s:%s@127.0.0.1:3306/test?charset=utf8"
-	connStr :=  strings.Join([]string{Conn.UserName, ":", Conn.Password, "@tcp(",Conn.Host, ":3306", ")/", Conn.DbName, "?charset=utf8"}, "")
+	connStr :=  strings.Join([]string{Conn.UserName, ":", Conn.Password, "@tcp(",Conn.Host, ":",DataBaseInfo.Port, ")/", Conn.DbName, "?charset=utf8"}, "")
 	db, err := sql.Open("mysql", connStr)
 	if err != nil{
 		panic(err)

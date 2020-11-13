@@ -9,6 +9,15 @@ import (
 
 //topic list
 var WECHART = make(map[string]string)
+var UI_SERVER = make(map[string]string)
+var API_SERVER_PORT = 8099
+var DataBaseInfo = struct {
+	Host 		string
+	Port		string
+	Name 		string
+	User 		string
+	Password 	string
+}{}
 
 func init() {
 	configFile := flag.String("configfile", "config.ini", "General configuration file")
@@ -28,6 +37,28 @@ func init() {
 	}else{
 		panic("[ERROR]read config.ini wechart error")
 	}
+
+	if value, err := cfg.String("ui", "address");err != nil{
+		panic("[ERROR]read config.ini ui error")
+	}else {
+		UI_SERVER["host"] = value
+	}
+
+	if !cfg.HasSection("database"){
+		panic("[ERROR]read config.ini database error")
+	}
+
+	DataBaseInfo.Host, _ = cfg.String("database", "host")
+	DataBaseInfo.Port, _ = cfg.String("database", "port")
+	DataBaseInfo.Name, _ = cfg.String("database", "name")
+	DataBaseInfo.User, _ = cfg.String("database", "user")
+	DataBaseInfo.Password, _ = cfg.String("database", "password")
+
+	//API 监听端口
+	if cfg.HasSection("api"){
+		API_SERVER_PORT,_ = cfg.Int("api","port")
+	}
+
 }
 
 func GetWechartAppID()string{

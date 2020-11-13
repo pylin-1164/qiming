@@ -18,8 +18,9 @@ func init() {
 		"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}",
 		"https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${ACCESS_TOKEN}"}
 	client.getAccessToken()
+/*	订阅号不支持创建菜单功能
 	client.createMenu()
-	client.uploadImage()
+	client.uploadImage()*/
 
 }
 
