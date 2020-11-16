@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="common.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" style>
-<head>
-	<link rel="Shortcut Icon" href="${ctx}/resources/images/favicon.ico" type="image/x-icon" />
-	<title>启名</title>
-	<meta charset="utf-8">
-	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-	<meta http-equiv="Pragma" content="no-cache" />
-	<meta http-equiv="Expires" content="0" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<!-- 手机端效果支持 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<div>
     <!-- Modernizr -->
 	<script src="${ctx}/resources/js/libs/modernizr-2.6.2.min.js"></script>
 	<script type="text/javascript" src="${ctx}/resources/js/libs/jquery-1.10.2.min.js"></script>
@@ -105,8 +94,6 @@
 		
 		
 	</style>
-</head>
-<body>
 	<c:set value="40" var="max"></c:set>
 	<div id="table" class="one padded bounceInDown  animated">
          <c:forEach items="${names}"  var="name" varStatus="status">
@@ -174,144 +161,150 @@
 	      </div>
 	     </div>
      </c:if>
-</body>
-<script type="text/javascript" src="${ctx}/resources/js/libs/jquery.tmpl.js"></script>
-<script type="text/javascript" src="${ctx}/resources/js/groundwork.all.js"></script>
-
-<link href="${ctx}/resources/myalert/myAlert.css" rel="stylesheet" type="text/css" />
-<script src="${ctx}/resources/myalert/myAlert.js" type="text/javascript"></script>
-    
-    
-    
-<script type="text/javascript">
-	$.tpl = function(tmp,data){
-		tmp = tmp.replace(/@/g,"$");
-	    return $.tmpl(tmp, data );
-	}
+	<script type="text/javascript" src="${ctx}/resources/js/libs/jquery.tmpl.js"></script>
+	<script type="text/javascript" src="${ctx}/resources/js/groundwork.all.js"></script>
 	
-	$(document).ready(function(){
-		if("${error}" != "" ){
-			showError("${error}");
+	<link href="${ctx}/resources/myalert/myAlert.css" rel="stylesheet" type="text/css" />
+	<script src="${ctx}/resources/myalert/myAlert.js" type="text/javascript"></script>
+	    
+	    
+	    
+	<script type="text/javascript">
+		$.tpl = function(tmp,data){
+			tmp = tmp.replace(/@/g,"$");
+		    return $.tmpl(tmp, data );
 		}
 		
-	});
-
-	function showError(msg){
-		var myTip = {title: "校验失败",msg: msg,
-			button:{
-				ok: "确定"
+		$(document).ready(function(){
+			if("${error}" != "" ){
+				showError("${error}");
+			}else{
+				$("#sticker").parent().show()
 			}
-		};
-		MyAlert(myTip);
-	}
-
-
-
-	/* var tab1 = "<label class=\"tab-left\" >文化印象</label><label>@{wenhuaScore}分(主要参考成语、诗词、名言、名人用字等)</label>"+
-	"<label class=\"tab-left\" >五行八字</label><label>@{ wuxingScore }分(主要参考名字的五行是否符合八字喜用神)</label>"+
-	"<label class=\"tab-left\" >生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肖</label><label>@{ shengxiaoScore }分(主要参考名字是否符合生肖姓名学的起名)</label>"+
-	"<label class=\"tab-left\" >五格数理</label><label>@{ wugeScore }分(主要参考了名字用字的姓名学笔画组合的搭配关系)</label>"; */
-	var tab1 = "<div class=\"Contact\">"+
-	"<div class=\"tab2-left\" >文化印象</div><div class=\"tab2-right\">@{wenhuaScore}分(主要参考成语、诗词、名言、名人用字等)</div><br>"+
-	"</div>"+
-	"<div class=\"Contact\">"+
-	"<div class=\"tab2-left\" >五行八字</div><div class=\"tab2-right\">@{ wuxingScore }分(主要参考名字的五行是否符合八字喜用神)</div><br>"+
-	"</div>"+
-	"<div class=\"Contact\">"+
-	"<div class=\"tab2-left\" >生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肖</div><div class=\"tab2-right\">@{ shengxiaoScore }分(主要参考名字是否符合生肖姓名学的起名)</div><br>"+
-	"</div>"+
-	"<div class=\"Contact\">"+
-	"<div class=\"tab2-left\" >五格数理</div><div class=\"tab2-right\">@{ wugeScore }分(主要参考了名字用字的姓名学笔画组合的搭配关系)</div><br>"+
-	"</div>";
+			
+		});
 	
-	
-	
-	var tab2 = "<div class=\"Contact\">"+
-				"<div class=\"tab2-left\" >字义</div><div class=\"tab2-right\">@{ziyi}</div><br>"+
-				"</div>"+
-				"<div class=\"Contact\">"+
-				"<div class=\"tab2-left\" >音律</div><div class=\"tab2-right\">@{yinlv}</div><br>"+
-				"</div>"+
-				"<div class=\"Contact\">"+
-				"<div class=\"tab2-left\" >字形</div><div class=\"tab2-right\">@{zixing}</div><br>"+
-				"</div>"+
-				"<div class=\"Contact\">"+
-				"<div class=\"tab2-left\" >五格</div><div class=\"tab2-right\">@{wuge}</div><br>"+
-				"</div>"+
-				"<div class=\"Contact\">"+
-				"<div class=\"tab2-left\" >寓意</div><div class=\"tab2-right\">@{yiyun}</div><br>"+
-				"</div>";
-				/* "<div class=\"Contact\" style=\"margin-top: 20px;\">"+
-				"<div class=\"tab2-left\" >周易</div><div class=\"tab2-right\">@{zhouyi}</div><br>"+
-				"</div>"; */
-	var tab3 =  "<div class=\"Contact\">"+
-			    "<div class=\"tab3-left\">@{siciFirst}</div><div class=\"tab3-right\">— @{siciFirstSuffix}</div><br>"+
-			  	"</div>"+
-			  	"<div class=\"Contact\">"+
-				"    <div class=\"tab3-left\" >@{siciSec}</div><div class=\"tab3-right\">— @{siciSecSuffix}</div><br>"+
-			  	"</div>"+
-			  	"<div class=\"Contact\">"+
-				"    <div class=\"tab3-left\" >@{siciThree}</div><div class=\"tab3-right\">— @{siciThreeSuffix}</div><br>"+
-			  	"</div>"+
-			  	"<div class=\"Contact\">"+
-				"    <div class=\"tab3-left\" >@{siciFour}</div><div class=\"tab3-right\">— @{siciFourSuffix}</div><br>"+
-			  	"</div>"	
-	
-	function showDetail(divTag,userName,index){
-		$(divTag).addClass("hide");
-		$(divTag).next().removeClass("hide");
-		ajaxDetail(divTag,userName,index);
-		return 
-	}
-	
-	function removeDetail(divTag,index){
-		var a = $("#showTab_"+index);
-		$(a).removeClass("showMsg");
-		$(a).addClass("dismiss animated")
-        setTimeout(function() {
-        	$(divTag).addClass("hide");
-        	$(divTag).prev().prev().removeClass("hide");
-        	$(a).addClass("showMsg hide");
-        	$(a).removeClass("dismiss animated")
-            return 
-        },
-        1e3);
-		return 
-	}
-	
-	function ajaxDetail(divTag,userName,index){
-		var a = $("#showTab_"+index);
-		if(!$(a).hasClass("complete")){
-			$.ajax({
-				url:"${ctx}/findNameEstimate",
-				data:{"name":userName},
-				type:"POST",
-				dataType:"JSON",
-				async:false,
-				success:function(data){
-					var testData = {};
-					$.tpl(tab1, data ).appendTo("#tab1_"+index);
-					$.tpl(tab2, data ).appendTo("#tab2_"+index);
-					$.tpl(tab3, data ).appendTo("#tab3_"+index);
-					$(a).addClass("complete");
-					//$("#tab1_"+index).append(tab1);
+		function showError(msg){
+			var myTip = {title: "校验失败",msg: msg,
+				button:{
+					ok: "确定",
+					okEvent:function(){
+						$("#formDiv").show();
+						$("#nameDiv").hide();
+						$("#sticker").parent().hide();
+					}
 				}
-			});
+			};
+			MyAlert(myTip);
+		}
+	
+	
+	
+		/* var tab1 = "<label class=\"tab-left\" >文化印象</label><label>@{wenhuaScore}分(主要参考成语、诗词、名言、名人用字等)</label>"+
+		"<label class=\"tab-left\" >五行八字</label><label>@{ wuxingScore }分(主要参考名字的五行是否符合八字喜用神)</label>"+
+		"<label class=\"tab-left\" >生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肖</label><label>@{ shengxiaoScore }分(主要参考名字是否符合生肖姓名学的起名)</label>"+
+		"<label class=\"tab-left\" >五格数理</label><label>@{ wugeScore }分(主要参考了名字用字的姓名学笔画组合的搭配关系)</label>"; */
+		var tab1 = "<div class=\"Contact\">"+
+		"<div class=\"tab2-left\" >文化印象</div><div class=\"tab2-right\">@{wenhuaScore}分(主要参考成语、诗词、名言、名人用字等)</div><br>"+
+		"</div>"+
+		"<div class=\"Contact\">"+
+		"<div class=\"tab2-left\" >五行八字</div><div class=\"tab2-right\">@{ wuxingScore }分(主要参考名字的五行是否符合八字喜用神)</div><br>"+
+		"</div>"+
+		"<div class=\"Contact\">"+
+		"<div class=\"tab2-left\" >生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肖</div><div class=\"tab2-right\">@{ shengxiaoScore }分(主要参考名字是否符合生肖姓名学的起名)</div><br>"+
+		"</div>"+
+		"<div class=\"Contact\">"+
+		"<div class=\"tab2-left\" >五格数理</div><div class=\"tab2-right\">@{ wugeScore }分(主要参考了名字用字的姓名学笔画组合的搭配关系)</div><br>"+
+		"</div>";
+		
+		
+		
+		var tab2 = "<div class=\"Contact\">"+
+					"<div class=\"tab2-left\" >字义</div><div class=\"tab2-right\">@{ziyi}</div><br>"+
+					"</div>"+
+					"<div class=\"Contact\">"+
+					"<div class=\"tab2-left\" >音律</div><div class=\"tab2-right\">@{yinlv}</div><br>"+
+					"</div>"+
+					"<div class=\"Contact\">"+
+					"<div class=\"tab2-left\" >字形</div><div class=\"tab2-right\">@{zixing}</div><br>"+
+					"</div>"+
+					"<div class=\"Contact\">"+
+					"<div class=\"tab2-left\" >五格</div><div class=\"tab2-right\">@{wuge}</div><br>"+
+					"</div>"+
+					"<div class=\"Contact\">"+
+					"<div class=\"tab2-left\" >寓意</div><div class=\"tab2-right\">@{yiyun}</div><br>"+
+					"</div>";
+					/* "<div class=\"Contact\" style=\"margin-top: 20px;\">"+
+					"<div class=\"tab2-left\" >周易</div><div class=\"tab2-right\">@{zhouyi}</div><br>"+
+					"</div>"; */
+		var tab3 =  "<div class=\"Contact\">"+
+				    "<div class=\"tab3-left\">@{siciFirst}</div><div class=\"tab3-right\">— @{siciFirstSuffix}</div><br>"+
+				  	"</div>"+
+				  	"<div class=\"Contact\">"+
+					"    <div class=\"tab3-left\" >@{siciSec}</div><div class=\"tab3-right\">— @{siciSecSuffix}</div><br>"+
+				  	"</div>"+
+				  	"<div class=\"Contact\">"+
+					"    <div class=\"tab3-left\" >@{siciThree}</div><div class=\"tab3-right\">— @{siciThreeSuffix}</div><br>"+
+				  	"</div>"+
+				  	"<div class=\"Contact\">"+
+					"    <div class=\"tab3-left\" >@{siciFour}</div><div class=\"tab3-right\">— @{siciFourSuffix}</div><br>"+
+				  	"</div>"	
+		
+		function showDetail(divTag,userName,index){
+			$(divTag).addClass("hide");
+			$(divTag).next().removeClass("hide");
+			ajaxDetail(divTag,userName,index);
+			return 
 		}
 		
-		setTimeout(function() {
-			$(a).removeClass("hide");
-			$(divTag).next().addClass("hide");
-			$(divTag).next().next().removeClass("hide");
-		},1e3);
+		function removeDetail(divTag,index){
+			var a = $("#showTab_"+index);
+			$(a).removeClass("showMsg");
+			$(a).addClass("dismiss animated")
+	        setTimeout(function() {
+	        	$(divTag).addClass("hide");
+	        	$(divTag).prev().prev().removeClass("hide");
+	        	$(a).addClass("showMsg hide");
+	        	$(a).removeClass("dismiss animated")
+	            return 
+	        },
+	        1e3);
+			return 
+		}
 		
-	}
+		function ajaxDetail(divTag,userName,index){
+			var a = $("#showTab_"+index);
+			if(!$(a).hasClass("complete")){
+				$.ajax({
+					url:"${ctx}/findNameEstimate",
+					data:{"name":userName},
+					type:"POST",
+					dataType:"JSON",
+					async:false,
+					success:function(data){
+						var testData = {};
+						$.tpl(tab1, data ).appendTo("#tab1_"+index);
+						$.tpl(tab2, data ).appendTo("#tab2_"+index);
+						$.tpl(tab3, data ).appendTo("#tab3_"+index);
+						$(a).addClass("complete");
+						//$("#tab1_"+index).append(tab1);
+					}
+				});
+			}
+			
+			setTimeout(function() {
+				$(a).removeClass("hide");
+				$(divTag).next().addClass("hide");
+				$(divTag).next().next().removeClass("hide");
+			},1e3);
+			
+		}
+		
+		
+		$("#freshBtn").click(function(){
+			$("#commitBtn").click();
+		});
 	
 	
-	$("#freshBtn").click(function(){
-		location.reload();
-	});
-
-
-</script>
-</html>
+	</script>
+</div>
