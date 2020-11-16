@@ -169,7 +169,7 @@ func (w WechartAPI) clickMenuA(requestXml *RequestClickMenuXML, response *restfu
 
 	articleItem := ArticleItem{}
 	articleItem.ItemTitle = ItemTitle{Text:"启名"}
-	articleItem.ItemDescription = ItemDescription{Text:fmt.Sprintf("启航人生,从名字开始。你的授权码为： %s",licenseCode)}
+	articleItem.ItemDescription = ItemDescription{Text:fmt.Sprintf("以名之始，启航人生。你的授权码为： %s",licenseCode)}
 	articleItem.ItemPicUrl = ItemPicUrl{Text:fmt.Sprintf("%s/resources/wechart/qihang.png",config.UI_SERVER["host"])}
 	articleItem.ItemUrl = ItemUrl{Text:fmt.Sprintf("%s/?lisence=%s",config.UI_SERVER["host"],licenseCode)}
 

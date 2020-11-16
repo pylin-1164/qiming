@@ -1,6 +1,7 @@
 package test
 
 import (
+	"NameWorm/utils/aesutil"
 	"encoding/json"
 	"fmt"
 	"NameWorm/cnnumber"
@@ -24,3 +25,8 @@ func TestLisenceCode(t *testing.T){
 	fmt.Println(value["123"])
 }
 
+
+func TestAes(t *testing.T){
+	text := `{"firstName":"白","suffixName":"","gender":"1","year":"2020","month":"11","day":"1","licenseCode":"2847"}`
+	fmt.Println(aesutil.Encrypt(text))
+}
