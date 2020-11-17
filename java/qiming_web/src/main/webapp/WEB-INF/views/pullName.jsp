@@ -94,9 +94,8 @@
 		
 		div[role='tabpanel_tt']{
 		    position: absolute;
-		    left:50px;
+		    left:54px;
 		    top: 0px;
-		    height:100%;
 		}
 		
 	</style>
@@ -313,7 +312,7 @@
 		
 		$("ul > li").click(function(){
 			var index = $(this).attr("aria-controls").split("_")[1];
-			var tabContentHeight = $($(this).attr("aria-controls")+"").height() + 30;
+			var tabContentHeight = $($(this).attr("aria-controls")+"").height() + 18;
 			$("#showTab_"+index).children(":first").css("min-height",tabContentHeight+"px");
 		});
 	
