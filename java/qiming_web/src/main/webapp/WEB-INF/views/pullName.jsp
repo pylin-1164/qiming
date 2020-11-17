@@ -33,10 +33,10 @@
 		
 		
 		.tab-left{
-			float: left;text-align: right;flex: 0 0 30%;padding-right: 30px;
+			float: left;text-align: right;flex: 0 0 30%;padding-right: 10px;
 		}
 		.tab2-left{
-			float: left;text-align: left;padding-left: 20px;
+			float: left;text-align: left;padding-left: 10px;
 			flex: 0 0 30%;
 			line-height: 22px;
 		}
@@ -47,7 +47,7 @@
 		}
 		
 		.tab3-left{
-			float: left;text-align: left;padding-left: 20px;
+			float: left;text-align: left;padding-left:10px;
 			flex: 0 0 60%;
 			line-height: 22px;
 		}
@@ -62,7 +62,6 @@
 		.Contact {
 		  display: flex;     /* full width by default */
 		  min-height: 30px; /* use full height of viewport, at a minimum */
-		  margin-left: 50px;
 		}
 		
 		.tabs > ul >li {
@@ -93,6 +92,13 @@
 		}
 		
 		
+		div[role='tabpanel_tt']{
+		    position: absolute;
+		    left:50px;
+		    top: 0px;
+		    height:100%;
+		}
+		
 	</style>
 	<c:set value="40" var="max"></c:set>
 	<div id="table" class="one padded bounceInDown  animated">
@@ -111,15 +117,15 @@
 		         	</span>
 		         </div>
 		         <div id="showTab_${status.index}" class="alert message hide showMsg" style="background: #fff;color: #6a8c5c;font-size: 9px;padding: 0px;">
-	        		<div class="tabs vertical">
-					  <ul style="background-color: #dff0d8">
+	        		<div class="tabs vertical" id="#panel_div_${status.index}" style="min-height:200px;">
+					  <ul style="background-color: #dff0d8;float:left;">
 					    <li  aria-controls="#tab1_${status.index}">综合评分</li>
 					    <li  aria-controls="#tab2_${status.index}">名字分析</li>
 					    <li  aria-controls="#tab3_${status.index}">名言名句</li>
 					  </ul>
-					  <div id="tab1_${status.index}" role="tabpanel"></div>
-					  <div id="tab2_${status.index}" role="tabpanel"></div>
-					  <div id="tab3_${status.index}" role="tabpanel"></div>
+					  <div id="tab1_${status.index}" role="tabpanel_tt" ></div>
+					  <div id="tab2_${status.index}" role="tabpanel_tt" ></div>
+					  <div id="tab3_${status.index}" role="tabpanel_tt" ></div>
 				</div>	
 	         </div>
          	</c:if>
@@ -137,15 +143,15 @@
 		         	</span>
 		         </div>
 		         <div id="showTab_${status.index}" class="alert message hide showMsg" style="background: #fff;color: #6a8c5c;font-size: 9px;padding: 0px;">
-	        		<div class="tabs vertical">
-					  <ul style="background-color: #dff0d8">
+	        		<div class="tabs vertical" style="min-height:200px">
+					  <ul style="background-color: #dff0d8;float:left;">
 					   	<li  aria-controls="#tab1_${status.index}">综合评分</li>
 					    <li  aria-controls="#tab2_${status.index}">名字分析</li>
 					    <li  aria-controls="#tab3_${status.index}">名言名句</li>
 					  </ul>
-					  <div id="tab1_${status.index}" role="tabpanel"></div>
-					  <div id="tab2_${status.index}" role="tabpanel"></div>
-					  <div id="tab3_${status.index}" role="tabpanel"></div>
+					  <div id="tab1_${status.index}" role="tabpanel_tt" ></div>
+					  <div id="tab2_${status.index}" role="tabpanel_tt" ></div>
+					  <div id="tab3_${status.index}" role="tabpanel_tt" ></div>
 				</div>	
 	         </div>
          	</c:if>
@@ -303,6 +309,12 @@
 		
 		$("#freshBtn").click(function(){
 			$("#commitBtn").click();
+		});
+		
+		$("ul > li").click(function(){
+			var index = $(this).attr("aria-controls").split("_")[1];
+			var tabContentHeight = $($(this).attr("aria-controls")+"").height() + 30;
+			$("#showTab_"+index).children(":first").css("min-height",tabContentHeight+"px");
 		});
 	
 	

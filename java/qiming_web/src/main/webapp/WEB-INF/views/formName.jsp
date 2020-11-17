@@ -95,8 +95,14 @@
 	        theme: $('#theme').val(), // Specify theme like: theme: 'ios' or omit setting to use default
 	        lang: "zh", // Specify language like: lang: 'pl' or omit setting to use default
 	        display: $('#display').val(), // Specify display mode like: display: 'bottom' or omit setting to use default
-	        mode: $('#mode').val() // More info about mode: https://docs.mobiscroll.com/3-0-0_beta5/datetime#!opt-mode
+	        mode: $('#mode').val(), // More info about mode: https://docs.mobiscroll.com/3-0-0_beta5/datetime#!opt-mode
+	        onPosition:function(){
+	        	//alert($(".mbsc-fr-popup").length);
+	        	$(".mbsc-fr-popup").css("width","300px");
+	        	$(".mbsc-fr-popup").css("margin-left","7%");
+	        }
 	    });
+	    
 		
 	    $("#commitBtn").click(function(){
 	    	if(!validate()){
